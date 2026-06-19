@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'robb_dbt_project'
+name: 'my_new_project'
 version: '1.0.0'
 config-version: 2
 
@@ -36,13 +36,21 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  robb_dbt_project:
-      example:
-          schema: example 
+  my_new_project:
+    # Applies to all files under models/example/
+    example:
+      +materialized: table
+    project1:
+      bronze:
+        +database: PROJECT1_DB
+        +schema: BRONZE
       silver:
-          schema: silver
-          materialized: table
-      gold:
-          schema: gold
-          materialized: view
-
+        +database: PROJECT1_DB
+        +schema: silver
+    project2:
+      raw:
+        +database: PROJECT2_DB
+        +schema: RAW
+      mart:
+        +database: PROJECT2_DB
+        +schema: MART
